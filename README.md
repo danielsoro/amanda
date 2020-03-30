@@ -1,0 +1,2 @@
+# amanda
+Simple random phrases.
