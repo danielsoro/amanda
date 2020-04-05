@@ -8,14 +8,24 @@ import (
 	"os"
 )
 
+type Phrases struct {
+	value string
+}
+
+func getPhrases() []Phrases {
+	return []Phrases{
+		Phrases{"Eu te amo!!"},
+		Phrases{"Não vejo a hora de dormir contigo em meus braços todas as noites"},
+		Phrases{"Já disse que tu é muito gostosa? Tu é MUITOO GOSTOSA!!"},
+		Phrases{"Não existe princesa mais linda do que você, nem na Disney"},
+		Phrases{"Minha tchutchuquinha, que eu amo muitcho!!!"},
+		Phrases{"Já disse que tu é muito linda? Tu é MUITOO LINDA!!"},
+	}
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
-	phrases := [6]string{"Eu te amo!!",
-		"Não vejo a hora de dormir contigo em meus braços todas as noites",
-		"Já disse que tu é muito gostosa? Tu é MUITOO GOSTOSA!!",
-		"Não existe princesa mais linda do que você, nem na Disney",
-		"Minha tchutchuquinha, que eu amo muitcho!!!",
-		"Já disse que tu é muito linda? Tu é MUITOO LINDA!!"}
-	fmt.Fprintf(w, "<h1>%s</h1>", phrases[rand.Intn(len(phrases))])
+	var phrases = getPhrases()
+	fmt.Fprintf(w, "<h1>%s</h1>", phrases[rand.Intn(len(phrases))].value)
 }
 
 func main() {
