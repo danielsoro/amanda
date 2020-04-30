@@ -26,7 +26,7 @@ func getPhrases() []Phrases {
 
 func handler(ctx *fiber.Ctx) {
 	var phrases = getPhrases()
-	ctx.Set("Content-Type", "text/html")
+	ctx.Set(fiber.HeaderContentType, "text/html")
 	ctx.Send(fmt.Sprintf("<h1>%s</h1>", phrases[rand.Intn(len(phrases))].value))
 }
 
