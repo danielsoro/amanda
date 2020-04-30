@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
-	"net/http"
 	"os"
+
+	"github.com/gofiber/fiber"
 )
 
 type Phrases struct {
@@ -14,21 +15,25 @@ type Phrases struct {
 
 func getPhrases() []Phrases {
 	return []Phrases{
-		Phrases{"Eu te amo!!"},
-		Phrases{"Não vejo a hora de dormir contigo em meus braços todas as noites"},
-		Phrases{"Já disse que tu é muito gostosa? Tu é MUITOO GOSTOSA!!"},
-		Phrases{"Não existe princesa mais linda do que você, nem na Disney"},
-		Phrases{"Minha tchutchuquinha, que eu amo muitcho!!!"},
-		Phrases{"Já disse que tu é muito linda? Tu é MUITOO LINDA!!"},
+		{"Eu te amo!!"},
+		{"Não vejo a hora de dormir contigo em meus braços todas as noites"},
+		{"Já disse que tu é muito gostosa? Tu é MUITOO GOSTOSA!!"},
+		{"Não existe princesa mais linda do que você, nem na Disney"},
+		{"Minha tchutchuquinha, que eu amo muitcho!!!"},
+		{"Já disse que tu é muito linda? Tu é MUITOO LINDA!!"},
 	}
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func handler(ctx *fiber.Ctx) {
 	var phrases = getPhrases()
-	fmt.Fprintf(w, "<h1>%s</h1>", phrases[rand.Intn(len(phrases))].value)
+	ctx.Set("Content-Type", "text/html")
+	ctx.Send(fmt.Sprintf("<h1>%s</h1>", phrases[rand.Intn(len(phrases))].value))
 }
 
 func main() {
+	app := fiber.New()
+
+	app.Get("/", handler)
 	port := os.Getenv("PORT")
 
 	if port == "" {
@@ -36,6 +41,5 @@ func main() {
 		log.Print("$PORT == 8080")
 	}
 
-	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	app.Listen(port)
 }
