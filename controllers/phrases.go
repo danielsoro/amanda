@@ -15,6 +15,7 @@ func getPhrases() []string {
 		"Não existe princesa mais linda do que você, nem na Disney",
 		"Minha tchutchuquinha, que eu amo muitcho!!!",
 		"Já disse que tu é muito linda? Tu é MUITOO LINDA!!",
+		"Não existe ninguém mais linda que você!!!",
 	}
 }
 
