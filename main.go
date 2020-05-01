@@ -32,22 +32,33 @@ func handler(ctx *fiber.Ctx) {
 }
 
 func main() {
-	app := fiber.New()
+	// Create the app
+	app := fiber.New(&fiber.Settings{
+		Prefork: true,
+	})
 
+	// Configure basich auth for the project
 	cfg := basicauth.Config{
 		Users: map[string]string{
 			os.Getenv("USER"): os.Getenv("PASSWORD"),
 		},
 	}
+
+	// Set the basich auth
 	app.Use(basicauth.New(cfg))
 
+	// Creat the root path
 	app.Get("/", handler)
+
+	// Get the port from env
 	port := os.Getenv("PORT")
 
+	// verify if port is setted or not
 	if port == "" {
 		port = "8080"
 		log.Print("$PORT == 8080")
 	}
 
+	// start the server
 	app.Listen(port)
 }
