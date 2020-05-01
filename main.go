@@ -1,31 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"math/rand"
 	"os"
 
+	"github.com/danielsoro/amanda/middlewares"
 	"github.com/gofiber/basicauth"
+
+	"github.com/danielsoro/amanda/controllers"
 	"github.com/gofiber/fiber"
 )
-
-func getPhrases() []string {
-	return []string{
-		"Eu te amo!!",
-		"Não vejo a hora de dormir contigo em meus braços todas as noites",
-		"Já disse que tu é muito gostosa? Tu é MUITOO GOSTOSA!!",
-		"Não existe princesa mais linda do que você, nem na Disney",
-		"Minha tchutchuquinha, que eu amo muitcho!!!",
-		"Já disse que tu é muito linda? Tu é MUITOO LINDA!!",
-	}
-}
-
-func handler(ctx *fiber.Ctx) {
-	var phrases = getPhrases()
-	ctx.Set(fiber.HeaderContentType, "text/html; charset=utf-8")
-	ctx.Send(fmt.Sprintf("<h1>%s</h1>", phrases[rand.Intn(len(phrases))]))
-}
 
 func main() {
 	// Create the app
@@ -33,18 +17,11 @@ func main() {
 		Prefork: true,
 	})
 
-	// Configure basich auth for the project
-	cfg := basicauth.Config{
-		Users: map[string]string{
-			os.Getenv("USER"): os.Getenv("PASSWORD"),
-		},
-	}
-
 	// Set the basich auth
-	app.Use(basicauth.New(cfg))
+	app.Use(basicauth.New(middlewares.GetConfig()))
 
 	// Creat the root path
-	app.Get("/", handler)
+	app.Get("/", controllers.GetPhrasesHandler)
 
 	// Get the port from env
 	port := os.Getenv("PORT")
