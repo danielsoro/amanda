@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"os"
 
+	"github.com/gofiber/basicauth"
 	"github.com/gofiber/fiber"
 )
 
@@ -32,6 +33,13 @@ func handler(ctx *fiber.Ctx) {
 
 func main() {
 	app := fiber.New()
+
+	cfg := basicauth.Config{
+		Users: map[string]string{
+			os.Getenv("USER"): os.Getenv("PASSWORD"),
+		},
+	}
+	app.Use(basicauth.New(cfg))
 
 	app.Get("/", handler)
 	port := os.Getenv("PORT")
