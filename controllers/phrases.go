@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"math/rand"
 
 	"github.com/gofiber/fiber"
@@ -22,6 +21,8 @@ func getPhrases() []string {
 // GetPhrasesHandler :: GET - Handler to get phrases
 func GetPhrasesHandler(ctx *fiber.Ctx) {
 	var phrases = getPhrases()
-	ctx.Set(fiber.HeaderContentType, "text/html; charset=utf-8")
-	ctx.Send(fmt.Sprintf("<h1>%s</h1>", phrases[rand.Intn(len(phrases))]))
+	bind := fiber.Map{
+		"phrase": phrases[rand.Intn(len(phrases))],
+	}
+	ctx.Render("view/index.html", bind)
 }
