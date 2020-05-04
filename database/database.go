@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	 once sync.Once
-	 instance *gorm.DB
+	once     sync.Once
+	instance *gorm.DB
 )
 
 func Connect() *gorm.DB {
