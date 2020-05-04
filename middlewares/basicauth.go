@@ -12,7 +12,7 @@ var cfg = basicauth.Config{
 	},
 }
 
-// GetBasicAuthMiddleware returns the basicauth configured to the app
+// GetConfig returns the basicauth configured to the app
 func GetConfig() basicauth.Config {
 	return cfg
 }

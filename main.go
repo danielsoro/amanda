@@ -1,14 +1,15 @@
 package main
 
 import (
-	"github.com/danielsoro/amanda/database"
 	"log"
 	"os"
+
+	"github.com/danielsoro/amanda/database"
+	"github.com/danielsoro/amanda/routes"
 
 	"github.com/danielsoro/amanda/middlewares"
 	"github.com/gofiber/basicauth"
 
-	"github.com/danielsoro/amanda/controllers"
 	"github.com/gofiber/fiber"
 )
 
@@ -24,8 +25,8 @@ func main() {
 	// Set the basich auth
 	app.Use(basicauth.New(middlewares.GetConfig()))
 
-	// Creat the root path
-	app.Get("/", controllers.GetPhrasesHandler)
+	// Creating routes
+	routes.Routes(app)
 
 	// Get the port from env
 	port := os.Getenv("PORT")

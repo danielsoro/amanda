@@ -1,13 +1,13 @@
 package controllers
 
 import (
+	"math/rand"
+
 	"github.com/danielsoro/amanda/database"
 	"github.com/danielsoro/amanda/models"
-	"math/rand"
 
 	"github.com/gofiber/fiber"
 )
-
 
 func getPhrases() []models.Phrase {
 	var phrases []models.Phrase
