@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/danielsoro/amanda/database"
 	"log"
 	"os"
 
@@ -12,6 +13,9 @@ import (
 )
 
 func main() {
+	// Start the database
+	database.Connect()
+
 	// Create the app
 	app := fiber.New(&fiber.Settings{
 		Prefork: true,
