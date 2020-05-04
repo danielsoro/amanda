@@ -11,11 +11,12 @@ import (
 	"github.com/gofiber/basicauth"
 
 	"github.com/gofiber/fiber"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 func main() {
 	// Start the database
-	database.Connect()
+	database.Conn()
 
 	// Create the app
 	app := fiber.New(&fiber.Settings{
