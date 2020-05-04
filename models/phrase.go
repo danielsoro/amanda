@@ -12,7 +12,7 @@ type Phrase struct {
 }
 
 // GetPhrases returns all phrases
-func GetPhrases() []Phrase {
+func (p Phrase) GetPhrases() []Phrase {
 	var phrases []Phrase
 	database.Conn().Find(&phrases)
 	return phrases

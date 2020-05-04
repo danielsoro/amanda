@@ -7,5 +7,5 @@ import (
 
 // Routes is a function to define all routes of the project
 func Routes(app *fiber.App) {
-	app.Get("/", controllers.GetPhrasesHandler)
+	app.Get("/", controllers.PhraseController{}.GetPhrasesHandler)
 }
