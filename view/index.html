@@ -80,9 +80,14 @@
         <main role="main">
             <section class="jumbotron text-center">
                 <div class="container">
-                    <div class="alert" role="alert">
+                    <div class="alert " role="alert"></div>
                         <p>
-                            <h3>{{ .phrase }}</h3>
+                            <h3>
+                                <svg class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" clip-rule="evenodd"/>
+                                </svg> 
+                                {{ .phrase }}
+                            </h3>
                         </p>
                         <hr>
                         <p class="mb-0">SORO, Daniel Cunha</p>
@@ -91,7 +96,7 @@
             </section>
         </main>
 
-        <footer class="text-muted">
+        <footer class="footer mt-auto py-3">
             <div class="container">
               <p>Tchucos is &copy; Daniel "soro" Cunha</p>
               <p>Since 16/03/2019</p>
