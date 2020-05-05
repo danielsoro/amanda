@@ -16,12 +16,10 @@ import (
 
 func main() {
 	// Start the database
-	database.Conn()
+	database.Db{}.Session()
 
 	// Create the app
-	app := fiber.New(&fiber.Settings{
-		Prefork: true,
-	})
+	app := fiber.New()
 
 	// Set the basich auth
 	app.Use(basicauth.New(middlewares.GetConfig()))

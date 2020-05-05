@@ -14,6 +14,6 @@ type Phrase struct {
 // GetPhrases returns all phrases
 func (p Phrase) GetPhrases() []Phrase {
 	var phrases []Phrase
-	database.Conn().Find(&phrases)
+	database.Db{}.Session().Find(&phrases)
 	return phrases
 }
