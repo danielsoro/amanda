@@ -1,4 +1,4 @@
-package controllers
+package phrasecontroller
 
 import (
 	"math/rand"
@@ -7,12 +7,8 @@ import (
 	"github.com/gofiber/fiber"
 )
 
-// PhraseController is the struct for phrase
-type PhraseController struct {
-}
-
 // GetPhrasesHandler :: GET - Handler to get phrases
-func (p PhraseController) GetPhrasesHandler(ctx *fiber.Ctx) {
+func GetPhrasesHandler(ctx *fiber.Ctx) {
 	phrases := models.Phrase{}.GetPhrases()
 	bind := fiber.Map{
 		"phrase": phrases[rand.Intn(len(phrases))].Value,

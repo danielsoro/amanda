@@ -16,7 +16,7 @@ import (
 
 func main() {
 	// Start the database
-	database.Db{}.Session()
+	database.Session()
 
 	// Create the app
 	app := fiber.New()
