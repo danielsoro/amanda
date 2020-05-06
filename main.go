@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -27,6 +28,9 @@ func main() {
 	// Creating routes
 	routes.Routes(app)
 
+	// 404 Middleware
+	app.Use(middlewares.NotFoundHandler)
+
 	// Get the port from env
 	port := os.Getenv("PORT")
 
@@ -37,5 +41,8 @@ func main() {
 	}
 
 	// start the server
-	app.Listen(port)
+	if err := app.Listen(port); err != nil {
+		panic(fmt.Sprintf("Startup Error %s", err.Error()))
+	}
+
 }
