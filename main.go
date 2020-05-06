@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -44,7 +43,7 @@ func main() {
 
 	// start the server
 	if err := app.Listen(port); err != nil {
-		fmt.Errorf("error during server startup %v", err.Error())
+		log.Fatalf("error during server startup %v", err.Error())
 	}
 
 }
