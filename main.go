@@ -10,6 +10,7 @@ import (
 
 	"github.com/danielsoro/amanda/middlewares"
 	"github.com/gofiber/basicauth"
+	"github.com/gofiber/recover"
 
 	"github.com/gofiber/fiber"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
@@ -22,8 +23,9 @@ func main() {
 	// Create the app
 	app := fiber.New()
 
-	// Set the basich auth
+	// Configure Middlewares
 	app.Use(basicauth.New(middlewares.GetConfig()))
+	app.Use(recover.New())
 
 	// Creating routes
 	routes.Routes(app)
@@ -42,7 +44,7 @@ func main() {
 
 	// start the server
 	if err := app.Listen(port); err != nil {
-		panic(fmt.Sprintf("Startup Error %s", err.Error()))
+		fmt.Errorf("error during server startup %v", err.Error())
 	}
 
 }

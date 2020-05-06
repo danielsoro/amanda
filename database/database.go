@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/jinzhu/gorm"
@@ -16,7 +17,7 @@ func Session() *gorm.DB {
 	once.Do(func() {
 		db, err := gorm.Open("sqlite3", "./database/amanda.db")
 		if err != nil {
-			panic("failed to connect database")
+			panic(fmt.Errorf("failed to connect database: %v", err.Error()))
 		}
 		instance = db
 	})
