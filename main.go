@@ -19,7 +19,9 @@ func main() {
 	database.Session()
 
 	// Create the app
-	app := fiber.New()
+	app := fiber.New(&fiber.Settings{
+		Prefork: true,
+	})
 
 	// Set the basich auth
 	app.Use(basicauth.New(middlewares.GetConfig()))
