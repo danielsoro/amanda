@@ -13,7 +13,7 @@ func GetPhrasesHandler(c *fiber.Ctx) {
 	bind := fiber.Map{
 		"phrase": phrases[rand.Intn(len(phrases))].Value,
 	}
-	err := c.Render("template/view/index.html", bind)
+	err := c.Render("index", bind)
 	if err != nil {
 		c.Status(fiber.StatusInternalServerError)
 	}

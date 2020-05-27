@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/gofiber/template/html"
+
 	"github.com/danielsoro/amanda/database"
 	"github.com/danielsoro/amanda/routes"
 
@@ -21,6 +23,8 @@ func main() {
 
 	// Create the app
 	app := fiber.New()
+
+	app.Settings.Templates = html.New("./template/view", ".html")
 
 	// Configure Middlewares
 	app.Use(basicauth.New(middlewares.GetConfig()))
