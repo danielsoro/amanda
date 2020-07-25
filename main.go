@@ -4,16 +4,13 @@ import (
 	"log"
 	"os"
 
-	"github.com/gofiber/template/html"
-
 	"github.com/danielsoro/amanda/database"
-	"github.com/danielsoro/amanda/routes"
-
 	"github.com/danielsoro/amanda/middlewares"
+	"github.com/danielsoro/amanda/routes"
 	"github.com/gofiber/basicauth"
-	"github.com/gofiber/recover"
-
 	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/middleware"
+	"github.com/gofiber/template/html"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
@@ -21,14 +18,17 @@ func main() {
 	// Start the database
 	database.Session()
 
-	// Create the app
-	app := fiber.New()
+	// Create the template engine
+	engine := html.New("./template/view", ".html")
 
-	app.Settings.Templates = html.New("./template/view", ".html")
+	// Create the app
+	app := fiber.New(&fiber.Settings{
+		Views: engine,
+	})
 
 	// Configure Middlewares
 	app.Use(basicauth.New(middlewares.GetConfig()))
-	app.Use(recover.New())
+	app.Use(middleware.Recover())
 
 	// Creating routes
 	routes.Routes(app)
