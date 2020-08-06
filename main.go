@@ -42,7 +42,7 @@ func main() {
 	// verify if port is setted or not
 	if port == "" {
 		port = "8080"
-		log.Print("$PORT == 8080")
+		log.Print("$PORT == 8080");
 	}
 
 	// start the server
