@@ -26,6 +26,10 @@ func main() {
 		Views: engine,
 	})
 
+
+	// Static files
+	app.Static("/", "./public")
+
 	// Configure Middlewares
 	app.Use(basicauth.New(middlewares.GetConfig()))
 	app.Use(recover.New())
@@ -41,7 +45,7 @@ func main() {
 
 	// verify if port is setted or not
 	if port == "" {
-		port = ":8080"
+		port = "8080"
 		log.Print("$PORT == 8080")
 	}
 
