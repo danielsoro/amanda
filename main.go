@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/danielsoro/amanda/database"
@@ -14,9 +15,14 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
+const (
+	xForwardedProtoHeader = "x-forwarded-proto"
+)
+
 func main() {
 	// Start the database
 	database.Session()
+
 
 	// Create the template engine
 	engine := html.New("./template/view", ".html")
@@ -24,6 +30,15 @@ func main() {
 	// Create the app
 	app := fiber.New(fiber.Config{
 		Views: engine,
+	})
+
+	app.Use(func(c *fiber.Ctx) bool {
+		headerValue := string(c.Request().Header.Peek(xForwardedProtoHeader))
+		if (headerValue != "https") {
+			sslUrl := "https://" + string(c.Request().Host()) + string(c.Request().RequestURI())
+			c.Redirect(sslUrl, http.StatusPermanentRedirect)
+		}
+		return true
 	})
 
 
