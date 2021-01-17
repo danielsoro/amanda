@@ -32,14 +32,14 @@ func main() {
 		Views: engine,
 	})
 
-	app.Use(func(c *fiber.Ctx) bool {
+	app.Use(func(c *fiber.Ctx) error {
 		headerValue := string(c.Request().Header.Peek(xForwardedProtoHeader))
 		log.Print("Header Value in my Middleware : " + headerValue);
 		if headerValue != "https" {
 			sslUrl := "https://" + string(c.Request().Host()) + string(c.Request().RequestURI())
 			c.Redirect(sslUrl, http.StatusPermanentRedirect)
 		}
-		return true
+		return c.Next()
 	})
 
 
