@@ -46,7 +46,7 @@ func main() {
 	}
 
 	// start the server
-	if err := app.Listen(port); err != nil {
+	if err := app.Listen(":" + port); err != nil {
 		log.Fatalf("error during server startup %v", err.Error())
 	}
 }
