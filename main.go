@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/danielsoro/amanda/database"
@@ -31,18 +30,6 @@ func main() {
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
-
-	app.Use(func(c *fiber.Ctx) error {
-		headerValue := string(c.Request().Header.Peek(xForwardedProtoHeader))
-		log.Print("Header Value in my Middleware : " + headerValue)
-		if headerValue != "https" {
-			sslUrl := "https://" + string(c.Request().Host()) + string(c.Request().RequestURI())
-			log.Print("Redirecting to: " + sslUrl)
-			c.Redirect(sslUrl, http.StatusPermanentRedirect)
-		}
-		return c.Next()
-	})
-
 
 	// Static files
 	app.Static("/", "./public")
