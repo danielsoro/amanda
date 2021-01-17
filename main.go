@@ -34,7 +34,8 @@ func main() {
 
 	app.Use(func(c *fiber.Ctx) bool {
 		headerValue := string(c.Request().Header.Peek(xForwardedProtoHeader))
-		if (headerValue != "https") {
+		log.Print("Header Value in my Middleware : " + headerValue);
+		if headerValue != "https" {
 			sslUrl := "https://" + string(c.Request().Host()) + string(c.Request().RequestURI())
 			c.Redirect(sslUrl, http.StatusPermanentRedirect)
 		}
