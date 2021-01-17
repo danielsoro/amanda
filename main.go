@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gofiber/fiber/v2/middleware/compress"
 	"log"
 	"os"
 
@@ -35,6 +36,9 @@ func main() {
 	app.Static("/", "./public")
 
 	// Configure Middlewares
+	app.Use(compress.New(compress.Config{
+		Level: compress.LevelBestSpeed,
+	}))
 	app.Use(basicauth.New(middlewares.GetConfig()))
 	app.Use(recover.New())
 
