@@ -7,9 +7,9 @@ import (
 	"github.com/danielsoro/amanda/database"
 	"github.com/danielsoro/amanda/middlewares"
 	"github.com/danielsoro/amanda/routes"
-	"github.com/gofiber/basicauth"
-	"github.com/gofiber/fiber"
-	"github.com/gofiber/fiber/middleware"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/basicauth"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/template/html"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
@@ -22,13 +22,13 @@ func main() {
 	engine := html.New("./template/view", ".html")
 
 	// Create the app
-	app := fiber.New(&fiber.Settings{
+	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
 
 	// Configure Middlewares
 	app.Use(basicauth.New(middlewares.GetConfig()))
-	app.Use(middleware.Recover())
+	app.Use(recover.New())
 
 	// Creating routes
 	routes.Routes(app)
@@ -41,7 +41,7 @@ func main() {
 
 	// verify if port is setted or not
 	if port == "" {
-		port = "8080"
+		port = ":8080"
 		log.Print("$PORT == 8080")
 	}
 

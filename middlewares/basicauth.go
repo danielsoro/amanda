@@ -2,8 +2,7 @@ package middlewares
 
 import (
 	"os"
-
-	"github.com/gofiber/basicauth"
+	"github.com/gofiber/fiber/v2/middleware/basicauth"
 )
 
 var cfg = basicauth.Config{
